@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "id": 1763746453016,
+      "fullname": "VIPRUS Member",
+      "email": "paradoxvisual2.0@gmail.com",
+      "phone": "+2348146417776",
+      "password": "7dc09f1eb0879839b0b67ca17d2370a0167f1dcdd984a2fca8bddad9cb0bb789",
+      "plan": "lite",
+      "userType": "admin",
+      "referralCode": "PDXEE6167FE",
+      "referredBy": null,
+      "totalEarnings": "0.00",
+      "currentBalance": "0.00",
+      "tasksCompleted": 0,
+      "isActive": true,
+      "createdAt": "2025-11-21T17:34:13.016Z",
+      "updatedAt": "2025-11-21T17:34:13.016Z"
+    },
+    {
+      "id": 1763755579479,
+      "fullname": "VIPRUS Member",
+      "email": "paradoxvulca@gmail.com",
+      "phone": "+2349130717272",
+      "password": "7dc09f1eb0879839b0b67ca17d2370a0167f1dcdd984a2fca8bddad9cb0bb789",
+      "plan": "lite",
+      "userType": "regular",
+      "referralCode": "PDX9B2F6C22",
+      "referredBy": null,
+      "totalEarnings": "0.00",
+      "currentBalance": "0.00",
+      "tasksCompleted": 0,
+      "isActive": true,
+      "createdAt": "2025-11-21T20:06:19.479Z",
+      "updatedAt": "2025-11-21T20:06:19.479Z"
+    },
+    {
+      "id": 1763797803209,
+      "fullname": "VIPRUS Member",
+      "email": "deleteme880@gmail.com",
+      "phone": "234656569488",
+      "password": "7dc09f1eb0879839b0b67ca17d2370a0167f1dcdd984a2fca8bddad9cb0bb789",
+      "plan": "bf",
+      "userType": "regular",
+      "referralCode": "PDXEC7C2B69",
+      "referredBy": null,
+      "totalEarnings": "0.00",
+      "currentBalance": "0.00",
+      "tasksCompleted": 0,
+      "isActive": true,
+      "createdAt": "2025-11-22T07:50:03.209Z",
+      "updatedAt": "2025-11-22T07:50:03.209Z"
+    }
+  ],
+  "tasks": [],
+  "userTasks": [],
+  "earnings": [],
+  "referrals": []
+}
