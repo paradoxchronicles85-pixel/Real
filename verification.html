@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Account - VIPRUS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .verification-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .verification-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .verification-header h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .verification-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .verification-step {
+            margin-bottom: 30px;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .step-content {
+            padding-left: 55px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .otp-inputs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .otp-input {
+            width: 50px !important;
+            height: 50px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+            margin-top: 10px;
+        }
+        
+        .status-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .status-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .status-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        
+        .status-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+        
+        .timer {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .verified-icon {
+            color: #10b981;
+            font-size: 60px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-container">
+        <div class="verification-header">
+            <h1>🔐 Verify Your Account</h1>
+            <p>Complete verification to activate your VIPRUS account</p>
+        </div>
+        
+        <div id="phoneVerificationStep" class="verification-step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">Phone Verification</div>
+            </div>
+            <div class="step-content">
+                <div id="phoneStatusMessage"></div>
+                <div class="form-group">
+                    <label>Enter your phone number</label>
+                    <input type="tel" id="phoneNumber" placeholder="+234 XXX XXX XXXX" value="">
+                </div>
+                <button class="btn btn-primary" id="sendOtpBtn">Send Verification Code</button>
+                
+                <div id="otpInputSection" class="hidden" style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label>Enter 6-digit code</label>
+                        <div class="otp-inputs">
+                            <input type="text" class="otp-input" maxlength="1" data-index="0">
+                            <input type="text" class="otp-input" maxlength="1" data-index="1">
+                            <input type="text" class="otp-input" maxlength="1" data-index="2">
+                            <input type="text" class="otp-input" maxlength="1" data-index="3">
+                            <input type="text" class="otp-input" maxlength="1" data-index="4">
+                            <input type="text" class="otp-input" maxlength="1" data-index="5">
+                        </div>
+                    </div>
+                    <div class="timer" id="otpTimer"></div>
+                    <button class="btn btn-primary" id="verifyOtpBtn">Verify Code</button>
+                    <button class="btn btn-secondary" id="resendOtpBtn">Resend Code</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="emailVerificationStep" class="verification-step hidden">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">Email Verification</div>
+            </div>
+            <div class="step-content">
+                <div class="verified-icon">✅</div>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                    Phone verified! Check your email for verification link.
+                </p>
+                <button class="btn btn-primary" onclick="window.location.href='/dashboard.html'">
+                    Continue to Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const phoneNumber = new URLSearchParams(window.location.search).get('phone') || '';
+        document.getElementById('phoneNumber').value = phoneNumber;
+        
+        let otpTimer;
+        let timeLeft = 300; // 5 minutes
+        
+        // OTP input auto-focus
+        document.querySelectorAll('.otp-input').forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < 5) {
+                    document.querySelector(`[data-index="${index + 1}"]`).focus();
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    document.querySelector(`[data-index="${index - 1}"]`).focus();
+                }
+            });
+        });
+        
+        function showMessage(message, type) {
+            const container = document.getElementById('phoneStatusMessage');
+            container.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
+        }
+        
+        function startOtpTimer() {
+            timeLeft = 300;
+            const timerEl = document.getElementById('otpTimer');
+            
+            otpTimer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerEl.textContent = `Code expires in ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(otpTimer);
+                    timerEl.textContent = 'Code expired. Request new code.';
+                }
+            }, 1000);
+        }
+        
+        document.getElementById('sendOtpBtn').addEventListener('click', async () => {
+            const phone = document.getElementById('phoneNumber').value.trim();
+            
+            if (!phone) {
+                showMessage('Please enter your phone number', 'error');
+                return;
+            }
+            
+            const btn = document.getElementById('sendOtpBtn');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            
+            try {
+                const response = await fetch('/api/send-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('✅ Verification code sent to your phone!', 'success');
+                    document.getElementById('otpInputSection').classList.remove('hidden');
+                    document.querySelector('.otp-input').focus();
+                    startOtpTimer();
+                } else {
+                    showMessage(result.error || 'Failed to send code', 'error');
+                    btn.disabled = false;
+                    btn.textContent = 'Send Verification Code';
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Send Verification Code';
+            }
+        });
+        
+        document.getElementById('verifyOtpBtn').addEventListener('click', async () => {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            
+            if (otp.length !== 6) {
+                showMessage('Please enter the complete 6-digit code', 'error');
+                return;
+            }
+            
+            const phone = document.getElementById('phoneNumber').value.trim();
+            const btn = document.getElementById('verifyOtpBtn');
+            btn.disabled = true;
+            btn.textContent = 'Verifying...';
+            
+            try {
+                const response = await fetch('/api/verify-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, otp })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    clearInterval(otpTimer);
+                    document.getElementById('phoneVerificationStep').classList.add('hidden');
+                    document.getElementById('emailVerificationStep').classList.remove('hidden');
+                } else {
+                    showMessage(result.error || 'Invalid code', 'error');
+                    if (result.attemptsLeft !== undefined) {
+                        showMessage(`${result.error}. ${result.attemptsLeft} attempts remaining.`, 'error');
+                    }
+                    btn.disabled = false;
+                    btn.textContent = 'Verify Code';
+                }
+            } catch (error) {
+                showMessage('Verification failed. Please try again.', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Verify Code';
+            }
+        });
+        
+        document.getElementById('resendOtpBtn').addEventListener('click', () => {
+            clearInterval(otpTimer);
+            document.getElementById('sendOtpBtn').click();
+        });
+    </script>
+</body>
+</html>
